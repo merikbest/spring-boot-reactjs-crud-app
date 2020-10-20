@@ -23,6 +23,12 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
     @NonNull
-    @Column(name = "email")
-    private String email;
+    @Column(name = "city")
+    private String city;
+    @NonNull
+    @Column(name = "address")
+    private String address;
+    @NonNull
+    @Column(name = "telephone")
+    private String telephone;
 }
