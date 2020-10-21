@@ -1,6 +1,19 @@
 import React, {Component} from 'react';
 import EmployeeService from "../../services/employee-service";
 
+const initialState = {
+    firstName: "",
+    lastName: "",
+    city: "",
+    address: "",
+    telephone: "",
+    firstNameError: "",
+    lastNameError: "",
+    cityError: "",
+    addressError: "",
+    telephoneError: ""
+}
+
 class EmployeeComponent extends Component {
 
     constructor(props) {
@@ -8,11 +21,7 @@ class EmployeeComponent extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            firstName: "",
-            lastName: "",
-            city: "",
-            address: "",
-            telephone: ""
+            initialState
         }
 
         this.saveOrUpdateEmployee = this.saveOrUpdateEmployee.bind(this);
@@ -49,7 +58,7 @@ class EmployeeComponent extends Component {
         event.preventDefault();
 
         const {firstName, lastName, city, address, telephone} = this.state;
-
+        const isValid = this.validate();
         let employee = {
             firstName: firstName,
             lastName: lastName,
@@ -58,17 +67,65 @@ class EmployeeComponent extends Component {
             telephone: telephone
         };
 
-        if (this.state.id === "add") {
-            EmployeeService.createEmployee(employee)
-                .then((response) => {
-                    this.props.history.push("/employees")
-                });
-        } else {
-            EmployeeService.updateEmployee(this.state.id, employee)
-                .then((response) => {
-                    this.props.history.push("/employees")
-                });
+        if (!isValid) {
+            //Clear form
+            this.setState(initialState);
+
+            if (this.state.id === "add") {
+                EmployeeService.createEmployee(employee)
+                    .then((response) => {
+                        this.props.history.push("/employees")
+                    });
+            } else {
+                EmployeeService.updateEmployee(this.state.id, employee)
+                    .then((response) => {
+                        this.props.history.push("/employees")
+                    });
+            }
         }
+    }
+
+    validate = () => {
+        let isError = false;
+        const errors = {
+            firstNameError: "",
+            lastNameError: "",
+            cityError: "",
+            addressError: "",
+            telephoneError: ""
+        }
+
+        if (!this.state.firstName) {
+            isError = true;
+            errors.firstNameError = "Empty field!";
+        }
+
+        if (!this.state.lastName) {
+            isError = true;
+            errors.lastNameError = "Empty field!";
+        }
+
+        if (!this.state.city) {
+            isError = true;
+            errors.cityError = "Empty field!";
+        }
+
+        if (!this.state.address) {
+            isError = true;
+            errors.addressError = "Empty field!";
+        }
+
+        if (!this.state.telephone) {
+            isError = true;
+            errors.telephoneError = "Empty field!";
+        }
+
+        this.setState({
+            ...this.state,
+            ...errors
+        });
+
+        return isError;
     }
 
     cancel() {
@@ -102,6 +159,7 @@ class EmployeeComponent extends Component {
                                                className="form-control"
                                                value={firstName}
                                                onChange={this.handleInputChange}/>
+                                        <div style={{color: "red"}}>{this.state.firstNameError}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Last Name</label>
@@ -109,6 +167,7 @@ class EmployeeComponent extends Component {
                                                className="form-control"
                                                value={lastName}
                                                onChange={this.handleInputChange}/>
+                                        <div style={{color: "red"}}>{this.state.lastNameError}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>City</label>
@@ -116,6 +175,7 @@ class EmployeeComponent extends Component {
                                                className="form-control"
                                                value={city}
                                                onChange={this.handleInputChange}/>
+                                        <div style={{color: "red"}}>{this.state.cityError}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Address</label>
@@ -123,6 +183,7 @@ class EmployeeComponent extends Component {
                                                className="form-control"
                                                value={address}
                                                onChange={this.handleInputChange}/>
+                                        <div style={{color: "red"}}>{this.state.addressError}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Telephone</label>
@@ -130,6 +191,7 @@ class EmployeeComponent extends Component {
                                                className="form-control"
                                                value={telephone}
                                                onChange={this.handleInputChange}/>
+                                        <div style={{color: "red"}}>{this.state.telephoneError}</div>
                                     </div>
                                     <button className="btn btn-success" onClick={this.saveOrUpdateEmployee}>Save
                                     </button>
