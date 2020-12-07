@@ -1,30 +1,17 @@
 import React, {Component} from 'react';
-import EmployeeService from "../../services/employee-service";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-class ViewEmployeeComponent extends Component {
-    constructor(props) {
-        super(props);
+import {getEmployeeById} from "../../actions/employee-actions";
 
-        this.state = {
-            id: this.props.match.params.id,
-            employee: {},
-            error: {}
-        }
-    }
+class EmployeeViewComponent extends Component {
 
     componentDidMount() {
-        EmployeeService.getEmployeeById(this.state.id)
-            .then((response) => {
-                this.setState({employee: response.data});
-            })
-            .catch((error) => {
-                this.setState({error: error.response.data});
-            });
-    }
+        this.props.getEmployeeById(this.props.match.params.id);
+    };
 
     render() {
-        const {firstName, lastName, city, address, telephone} = this.state.employee;
-        const {message} = this.state.error;
+        const {firstName, lastName, city, address, telephone} = this.props.employee;
 
         return (
             <div>
@@ -32,7 +19,6 @@ class ViewEmployeeComponent extends Component {
                 <div className="card col-md-6 offset-md-3">
                     <h3 className="text-center">View Employee Details</h3>
                     <div className="card-body">
-                        <h4 style={{color: "red"}} className="text-center">{message}</h4>
                         <div className="row">
                             <div className="mr-2">First Name:</div>
                             <div>{firstName}</div>
@@ -60,4 +46,15 @@ class ViewEmployeeComponent extends Component {
     }
 }
 
-export default ViewEmployeeComponent;
+EmployeeViewComponent.propTypes = {
+    getEmployeeById: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
+    employee: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    errors: state.errors,
+    employee: state.employees.employee
+});
+
+export default connect(mapStateToProps, {getEmployeeById})(EmployeeViewComponent);

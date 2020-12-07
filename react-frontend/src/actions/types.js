@@ -1,0 +1,4 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const GET_EMPLOYEES = "GET_EMPLOYEES";
+export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
+export const GET_EMPLOYEE_BY_ID = "GET_EMPLOYEE_BY_ID";

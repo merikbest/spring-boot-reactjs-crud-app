@@ -1,3 +1,7 @@
 .notbold th {
     font-weight: normal
 }
+
+.btn-dark, .btn-danger {
+    margin-left: 10px;
+}
