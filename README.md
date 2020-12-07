@@ -7,7 +7,7 @@ This CRUD full-stack employee management application.
 Component         | Technology
 ---               | ---
 Backend           | Spring: Boot, Data
-Frontend          | React.js, Bootstrap
+Frontend          | React.js, Redux, Bootstrap
 Database          | Mysql
 Persistence       | JPA 
 Client Build      | npm, yarn, webpack
