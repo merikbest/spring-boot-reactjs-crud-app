@@ -6,21 +6,14 @@ import {updateEmployee, getEmployeeById} from "../../actions/employee-actions";
 import InputForm from "../parts/input-form";
 
 class EmployeeUpdateComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            firstName: "",
-            lastName: "",
-            city: "",
-            address: "",
-            telephone: "",
-            errors: {}
-        };
-
-        this.updateEmployee = this.updateEmployee.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
+    state = {
+        firstName: "",
+        lastName: "",
+        city: "",
+        address: "",
+        telephone: "",
+        errors: {}
+    };
 
     componentDidMount() {
         this.props.getEmployeeById(this.props.match.params.id);
@@ -55,14 +48,7 @@ class EmployeeUpdateComponent extends Component {
         event.preventDefault();
 
         const {firstName, lastName, city, address, telephone} = this.state;
-
-        const employee = {
-            firstName,
-            lastName,
-            city,
-            address,
-            telephone
-        };
+        const employee = {firstName, lastName, city, address, telephone};
 
         this.props.updateEmployee(this.props.match.params.id, employee, this.props.history);
     };
@@ -75,8 +61,7 @@ class EmployeeUpdateComponent extends Component {
                     employee={this.state}
                     errors={this.state.errors}
                     onSubmitForm={this.updateEmployee}
-                    handleInputChange={this.handleInputChange}
-                />
+                    handleInputChange={this.handleInputChange}/>
             </div>
         );
     }

@@ -6,21 +6,14 @@ import {createEmployee} from "../../actions/employee-actions";
 import InputForm from "../parts/input-form";
 
 class EmployeeAddComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            firstName: "",
-            lastName: "",
-            city: "",
-            address: "",
-            telephone: "",
-            errors: {}
-        };
-
-        this.createEmployee = this.createEmployee.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
+    state = {
+        firstName: "",
+        lastName: "",
+        city: "",
+        address: "",
+        telephone: "",
+        errors: {}
+    };
 
     // static getDerivedStateFromProps(nextProps)
     componentWillReceiveProps(nextProps) {
@@ -29,7 +22,7 @@ class EmployeeAddComponent extends Component {
         }
     }
 
-    handleInputChange(event) {
+    handleInputChange = (event) => {
         const {name, value} = event.target;
 
         this.setState({
@@ -37,18 +30,11 @@ class EmployeeAddComponent extends Component {
         });
     };
 
-    createEmployee(event) {
+    createEmployee = (event) => {
         event.preventDefault();
 
         const {firstName, lastName, city, address, telephone} = this.state;
-
-        const employee = {
-            firstName,
-            lastName,
-            city,
-            address,
-            telephone
-        };
+        const employee = {firstName, lastName, city, address, telephone};
 
         this.props.createEmployee(employee, this.props.history);
     };
@@ -61,8 +47,7 @@ class EmployeeAddComponent extends Component {
                     employee={this.state}
                     errors={this.state.errors}
                     onSubmitForm={this.createEmployee}
-                    handleInputChange={this.handleInputChange}
-                />
+                    handleInputChange={this.handleInputChange}/>
             </div>
         );
     }

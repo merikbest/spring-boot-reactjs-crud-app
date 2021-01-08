@@ -1,8 +1,6 @@
 package com.gmail.merikbest2015.springbootreactjscrudapp.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,10 +8,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "employees")
 @Data
-@NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "Empty field!")
     @Column(name = "first_name")

@@ -6,22 +6,18 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-    switch (action.type) {
+    const {type, payload} = action;
+
+    switch (type) {
         case GET_EMPLOYEES:
-            return {
-                ...state,
-                employees: action.payload
-            };
+            return {...state, employees: payload};
+
         case DELETE_EMPLOYEE:
-            return {
-                ...state,
-                employees: state.employees.filter((employee) => employee.id !== action.payload)
-            };
+            return {...state, employees: state.employees.filter((employee) => employee.id !== payload)};
+
         case GET_EMPLOYEE_BY_ID:
-            return {
-                ...state,
-                employee: action.payload
-            };
+            return {...state, employee: payload};
+
         default:
             return state;
     }
