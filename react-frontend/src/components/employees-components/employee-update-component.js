@@ -25,18 +25,12 @@ class EmployeeUpdateComponent extends Component {
             this.setState({errors: nextProps.errors});
         }
 
-        const {firstName, lastName, city, address, telephone} = nextProps.employee;
-
         this.setState({
-            firstName,
-            lastName,
-            city,
-            address,
-            telephone
+            ...nextProps.employee
         });
     }
 
-    handleInputChange(event) {
+    handleInputChange = (event) => {
         const {name, value} = event.target;
 
         this.setState({
@@ -44,7 +38,7 @@ class EmployeeUpdateComponent extends Component {
         });
     };
 
-    updateEmployee(event) {
+    updateEmployee = (event) => {
         event.preventDefault();
 
         const {firstName, lastName, city, address, telephone} = this.state;
@@ -54,6 +48,7 @@ class EmployeeUpdateComponent extends Component {
     };
 
     render() {
+
         return (
             <div>
                 <InputForm

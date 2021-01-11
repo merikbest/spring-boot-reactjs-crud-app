@@ -1,6 +1,8 @@
 # spring-boot-reactjs-crud-app
 
 This CRUD full-stack employee management application.
+#### An actual version of build is deployed on AWS:
+http://employeeweb.tk
 
 ### Used Technologies:
 
@@ -8,7 +10,7 @@ Component         | Technology
 ---               | ---
 Backend           | Spring: Boot, Data
 Frontend          | React.js, Redux, Bootstrap
-Database          | Mysql
+Database          | PostgreSQL
 Persistence       | JPA 
 Client Build      | npm, yarn, webpack
 Server Build      | Maven

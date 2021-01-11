@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -26,14 +26,14 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employees")
+    @GetMapping
     public ResponseEntity<?> getAllEmployees() {
         List<Employee> employees = employeeService.findAll();
 
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @PostMapping("/employees")
+    @PostMapping
     public ResponseEntity<?> createEmployee(@RequestBody @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
@@ -46,7 +46,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
         Employee employee = employeeService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
@@ -54,7 +54,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateEmployee(
             @PathVariable Long id,
             @RequestBody @Valid Employee employeeDetails,
@@ -80,7 +80,7 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
         Employee employee = employeeService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));

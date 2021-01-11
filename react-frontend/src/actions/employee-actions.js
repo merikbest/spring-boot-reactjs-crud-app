@@ -1,7 +1,8 @@
 import axios from "axios";
 import {GET_ERRORS, GET_EMPLOYEES, DELETE_EMPLOYEE, GET_EMPLOYEE_BY_ID} from "./types";
 
-const EMPLOYEE_API_BASE_URL = "http://localhost:8080/api/v1/employees";
+// const EMPLOYEE_API_BASE_URL = "http://localhost:8080/api/v1/employees";
+const EMPLOYEE_API_BASE_URL = "http://ec2-3-120-15-67.eu-central-1.compute.amazonaws.com:8080/api/v1/employees";
 
 export const createEmployee = (employee, history) => async dispatch => {
     try {

@@ -4,8 +4,9 @@ const Footer = () => {
     return (
         <div>
             <footer className="footer bg-dark">
-                <a className="mt-3" style={{textDecoration: "none", color: "white"}}
-                   href="https://github.com/merikbest">merikbest 2020</a>
+                <a href="https://github.com/merikbest" style={{textDecoration: "none", color: "white"}}>
+                    <i className="fab fa-github fa-2x mr-3 mt-2" style={{color: "white"}}></i>merikbest 2020
+                </a>
             </footer>
         </div>
     );
